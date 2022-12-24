@@ -1,0 +1,8 @@
+# Ignore everything
+/*
+
+# Do not ignore this
+!.gitignore
+
+# Except this folder
+!awesome/
