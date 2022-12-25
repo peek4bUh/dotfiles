@@ -79,6 +79,12 @@ awful.layout.layouts = {
 }
 -- }}}
 
+------------------------------------
+-- Gap between window and windows --
+------------------------------------
+beautiful.useless_gap = 6
+beautiful.gap_single_client = true
+
 -- {{{ Menu
 -- Create a launcher widget and a main menu
 myawesomemenu = {
