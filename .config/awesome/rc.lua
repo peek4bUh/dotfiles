@@ -192,13 +192,34 @@ awful.screen.connect_for_each_screen(function(s)
 
     -- Create a tasklist widget
     s.mytasklist = awful.widget.tasklist {
-        screen  = s,
-        filter  = awful.widget.tasklist.filter.currenttags,
-        buttons = tasklist_buttons
+        screen   = s,
+        filter   = awful.widget.tasklist.filter.currenttags,
+        buttons  = tasklist_buttons,
+        style    = { shape = gears.shape.rounded_rect },
+        layout   = wibox.layout.fixed.horizontal(),
+        widget_template = {
+            {
+                {
+                    {
+                        id = "icon_role",
+                        widget = wibox.widget.imagebox,
+                    },
+                    layout = wibox.container.place,
+                },
+                top    = 4,
+                right  = 4,
+                bottom = 4,
+                left   = 4,
+                widget = wibox.container.margin,
+            },
+            id = "background_role",
+            forced_width = 48,
+            widget = wibox.container.background,
+        }
     }
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ position = "top", screen = s, height = 32 })
+    s.mywibox = awful.wibar({ position = "top", screen = s, height = 36})
 
     -- Add widgets to the wibox
     s.mywibox:setup {
@@ -209,7 +230,10 @@ awful.screen.connect_for_each_screen(function(s)
             s.mytaglist,
             s.mypromptbox,
         },
-        nil, -- Middle widget
+        {
+            layout = wibox.container.place,
+            s.mytasklist
+        },
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             mykeyboardlayout,
