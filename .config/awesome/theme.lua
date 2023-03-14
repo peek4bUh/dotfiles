@@ -127,6 +127,7 @@ theme.icon_arcolinux = "~/.config/awesome/icons/arcolinux.svg"
 -- from /usr/share/icons and /usr/share/icons/hicolor will be used.
 theme.icon_theme = nil
 
-return theme
+theme.useless_gap = 6
+theme.gap_single_client = true
 
--- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80
+return theme
