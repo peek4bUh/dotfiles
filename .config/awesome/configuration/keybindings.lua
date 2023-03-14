@@ -13,7 +13,7 @@ shift = "Shift"
 -- Global keybindings
 -----------------------
 globalkeys = gears.table.join(
-    
+
     -- Move to previous or next window
     awful.key({ modkey, }, "j", function ()
             awful.client.focus.byidx(1)
