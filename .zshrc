@@ -11,6 +11,10 @@ HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
 
+alias sudo='sudo '
+alias ll="lsd -l"
+alias lla="lsd -la"
+alias vi="nvim"
 alias cat="bat"
 alias ls="lsd"
 alias dotfiles="/usr/bin/git --git-dir=/home/angel/dotfiles/ --work-tree=/home/angel"
@@ -18,13 +22,14 @@ alias dotfiles="/usr/bin/git --git-dir=/home/angel/dotfiles/ --work-tree=/home/a
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 autoload -Uz compinit
+zstyle ':completion:*' menu select
 compinit
-
+_comp_options+=(globdots)
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-
-source ./zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 export GPG_TTY=\$(tty)
+

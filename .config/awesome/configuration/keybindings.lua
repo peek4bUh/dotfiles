@@ -90,7 +90,10 @@ globalkeys = gears.table.join(
 
     -- Prompt
     awful.key({ modkey },            "space",     function () awful.spawn("rofi -show run") end,
-              {description = "Rofi launcher", group = "launcher"})
+			nil,
+              {description = "Rofi launcher", group = "launcher"}),
+
+    awful.key({ modkey, "Shift" }, "s", function () awful.spawn("flameshot gui") end )
 )
 
 clientkeys = gears.table.join(
