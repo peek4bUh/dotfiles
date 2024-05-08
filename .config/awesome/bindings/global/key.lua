@@ -1,12 +1,9 @@
 local awful = require("awful")
 local hotkeys_popup = require("awful.hotkeys_popup")
 require("awful.hotkeys_popup.keys")
-local menubar = require("menubar")
 
 local apps = require("config.apps")
 local mod = require("bindings.mod")
-
-menubar.utils.terminal = apps.terminal
 
 -- general awesome keys
 awful.keyboard.append_global_keybindings({
@@ -41,12 +38,12 @@ awful.keyboard.append_global_keybindings({
 		end,
 	}),
 	awful.key({
-		modifiers = { mod.super },
-		key = "p",
+		modifiers = { mod.super, mod.shift },
+		key = "Return",
 		description = "show the menubar",
 		group = "launcher",
 		on_press = function()
-			menubar.show()
+			awful.spawn("rofi -show run")
 		end,
 	}),
 })
