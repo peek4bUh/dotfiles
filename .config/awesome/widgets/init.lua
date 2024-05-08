@@ -4,6 +4,7 @@ local awful = require("awful")
 local hotkeys_popup = require("awful.hotkeys_popup")
 local beautiful = require("beautiful")
 local wibox = require("wibox")
+local xresources = require("beautiful.xresources")
 
 local apps = require("config.apps")
 local mod = require("bindings.mod")
@@ -40,10 +41,6 @@ _M.launcher = awful.widget.launcher({
 
 _M.keyboardlayout = awful.widget.keyboardlayout()
 _M.textclock = wibox.widget.textclock()
-
-function _M.create_promptbox()
-	return awful.widget.prompt()
-end
 
 function _M.create_layoutbox(s)
 	return awful.widget.layoutbox({
@@ -174,15 +171,27 @@ end
 function _M.create_wibox(s)
 	return awful.wibar({
 		screen = s,
-		position = "top",
+		position = "bottom",
+		height = xresources.apply_dpi(40),
 		widget = {
 			layout = wibox.layout.align.horizontal,
 			-- left widgets
 			{
 				layout = wibox.layout.fixed.horizontal,
-				_M.launcher,
+				wibox.container.margin(
+					_M.launcher,
+					xresources.apply_dpi(4),
+					xresources.apply_dpi(4),
+					xresources.apply_dpi(4)
+				),
+				wibox.container.margin(
+					s.layoutbox,
+					xresources.apply_dpi(4),
+					xresources.apply_dpi(4),
+					xresources.apply_dpi(4)
+				),
 				s.taglist,
-				s.promptbox,
+				spacing = xresources.apply_dpi(10),
 			},
 			-- middle widgets
 			s.tasklist,
@@ -192,7 +201,6 @@ function _M.create_wibox(s)
 				_M.keyboardlayout,
 				wibox.widget.systray(),
 				_M.textclock,
-				s.layoutbox,
 			},
 		},
 	})
