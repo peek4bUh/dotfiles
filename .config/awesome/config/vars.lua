@@ -1,6 +1,6 @@
-local _M = {}
-
 local awful = require("awful")
+
+local _M = {}
 
 _M.layouts = {
 	awful.layout.suit.floating,
