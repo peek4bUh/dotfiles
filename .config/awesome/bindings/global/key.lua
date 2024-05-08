@@ -5,7 +5,6 @@ local menubar = require("menubar")
 
 local apps = require("config.apps")
 local mod = require("bindings.mod")
-local widgets = require("widgets")
 
 menubar.utils.terminal = apps.terminal
 
@@ -294,18 +293,6 @@ awful.keyboard.append_global_keybindings({
 				if tag then
 					client.focus:toggle_tag(tag)
 				end
-			end
-		end,
-	}),
-	awful.key({
-		modifiers = { mod.super },
-		keygroup = "numpad",
-		description = "select layout directly",
-		group = "layout",
-		on_press = function(index)
-			local tag = awful.screen.focused().selected_tag
-			if tag then
-				tag.layout = tag.layouts[index] or tag.layout
 			end
 		end,
 	}),
