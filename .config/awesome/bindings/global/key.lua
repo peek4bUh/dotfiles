@@ -38,8 +38,8 @@ awful.keyboard.append_global_keybindings({
 		end,
 	}),
 	awful.key({
-		modifiers = { mod.super, mod.shift },
-		key = "Return",
+		modifiers = { mod.super },
+		key = "r",
 		description = "show the menubar",
 		group = "launcher",
 		on_press = function()
