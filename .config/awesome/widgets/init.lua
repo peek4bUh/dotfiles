@@ -1,5 +1,3 @@
-local _M = {}
-
 local awful = require("awful")
 local hotkeys_popup = require("awful.hotkeys_popup")
 local beautiful = require("beautiful")
@@ -8,6 +6,8 @@ local xresources = require("beautiful.xresources")
 
 local apps = require("config.apps")
 local mod = require("bindings.mod")
+
+local _M = {}
 
 _M.awesomemenu = {
 	{
@@ -35,7 +35,7 @@ _M.mainmenu = awful.menu({
 })
 
 _M.launcher = awful.widget.launcher({
-	image = beautiful.awesome_icon,
+	image = beautiful.arcolinux_icon,
 	menu = _M.mainmenu,
 })
 
