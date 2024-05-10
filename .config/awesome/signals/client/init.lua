@@ -3,6 +3,10 @@ require("awful.autofocus")
 local wibox = require("wibox")
 
 client.connect_signal("request::titlebars", function(c)
+	local bottom_titlebar = awful.titlebar(c, {
+		size = 30,
+	})
+
 	-- buttons for the titlebar
 	local buttons = {
 		awful.button({
@@ -21,25 +25,20 @@ client.connect_signal("request::titlebars", function(c)
 		}),
 	}
 
-	awful.titlebar(c).widget = {
-		-- left
-		{
-			awful.titlebar.widget.iconwidget(c),
+	bottom_titlebar.widget = {
+		{ -- Left
 			buttons = buttons,
 			layout = wibox.layout.fixed.horizontal,
 		},
-		-- middle
-		{
-			-- title
-			{
+		{ -- Middle
+			{ -- Title
 				align = "center",
 				widget = awful.titlebar.widget.titlewidget(c),
 			},
 			buttons = buttons,
 			layout = wibox.layout.flex.horizontal,
 		},
-		-- right
-		{
+		{ -- Right
 			awful.titlebar.widget.floatingbutton(c),
 			awful.titlebar.widget.maximizedbutton(c),
 			awful.titlebar.widget.stickybutton(c),
