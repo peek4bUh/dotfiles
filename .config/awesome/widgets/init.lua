@@ -1,3 +1,4 @@
+local gears = require("gears")
 local awful = require("awful")
 local hotkeys_popup = require("awful.hotkeys_popup")
 local beautiful = require("beautiful")
@@ -132,38 +133,56 @@ function _M.create_taglist(s)
 end
 
 function _M.create_tasklist(s)
+	local tasklist_buttons = {
+		awful.button({
+			modifiers = {},
+			button = 1,
+			on_press = function(c)
+				c:activate({ context = "tasklist", action = "toggle_minimization" })
+			end,
+		}),
+		awful.button({
+			modifiers = {},
+			button = 3,
+			on_press = function()
+				awful.menu.client_list({ theme = { width = 250 } })
+			end,
+		}),
+		awful.button({
+			modifiers = {},
+			button = 4,
+			on_press = function()
+				awful.client.focus.byidx(-1)
+			end,
+		}),
+		awful.button({
+			modifiers = {},
+			button = 5,
+			on_press = function()
+				awful.client.focus.byidx(1)
+			end,
+		}),
+	}
+
 	return awful.widget.tasklist({
 		screen = s,
 		filter = awful.widget.tasklist.filter.currenttags,
-		buttons = {
-			awful.button({
-				modifiers = {},
-				button = 1,
-				on_press = function(c)
-					c:activate({ context = "tasklist", action = "toggle_minimization" })
-				end,
-			}),
-			awful.button({
-				modifiers = {},
-				button = 3,
-				on_press = function()
-					awful.menu.client_list({ theme = { width = 250 } })
-				end,
-			}),
-			awful.button({
-				modifiers = {},
-				button = 4,
-				on_press = function()
-					awful.client.focus.byidx(-1)
-				end,
-			}),
-			awful.button({
-				modifiers = {},
-				button = 5,
-				on_press = function()
-					awful.client.focus.byidx(1)
-				end,
-			}),
+		buttons = tasklist_buttons,
+		layout = wibox.layout.fixed.horizontal(),
+		widget_template = {
+			{
+				{
+					{
+						id = "icon_role",
+						widget = wibox.widget.imagebox,
+					},
+					layout = wibox.container.place,
+				},
+				margins = xresources.apply_dpi(4),
+				widget = wibox.container.margin,
+			},
+			id = "background_role",
+			widget = wibox.container.background,
 		},
 	})
 end
@@ -173,36 +192,32 @@ function _M.create_wibox(s)
 		screen = s,
 		position = "bottom",
 		height = xresources.apply_dpi(40),
-		widget = {
-			layout = wibox.layout.align.horizontal,
-			-- left widgets
-			{
-				layout = wibox.layout.fixed.horizontal,
-				wibox.container.margin(
+		widget = wibox.container.background({
+			widget = wibox.container.margin({
+				layout = wibox.layout.align.horizontal,
+				expand = "none",
+				{ -- Left widgets
+					layout = wibox.layout.fixed.horizontal,
 					_M.launcher,
-					xresources.apply_dpi(4),
-					xresources.apply_dpi(4),
-					xresources.apply_dpi(4)
-				),
-				wibox.container.margin(
 					s.layoutbox,
-					xresources.apply_dpi(4),
-					xresources.apply_dpi(4),
-					xresources.apply_dpi(4)
-				),
-				s.taglist,
-				spacing = xresources.apply_dpi(10),
-			},
-			-- middle widgets
-			s.tasklist,
-			-- right widgets
-			{
-				layout = wibox.layout.fixed.horizontal,
-				_M.keyboardlayout,
-				wibox.widget.systray(),
-				_M.textclock,
-			},
-		},
+					s.taglist,
+					spacing = xresources.apply_dpi(10),
+				},
+				{ -- Middle widgets
+					layout = wibox.layout.flex.horizontal,
+					nil,
+					s.tasklist,
+					nil,
+				},
+				{ -- Right widgets
+					layout = wibox.layout.fixed.horizontal,
+					_M.keyboardlayout,
+					wibox.widget.systray(),
+					_M.textclock,
+				},
+			}),
+			margins = xresources.apply_dpi(4),
+		}),
 	})
 end
 
