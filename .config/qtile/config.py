@@ -24,6 +24,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import os
 
 from libqtile import bar, layout, qtile, widget
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
@@ -146,6 +147,8 @@ extension_defaults = widget_defaults.copy()
 
 screens = [
     Screen(
+        wallpaper=os.path.join(os.path.expanduser("~"), "Images/house.jpg"),
+        wallpaper_mode="fill",
         bottom=bar.Bar(
             [
                 widget.CurrentLayout(),
