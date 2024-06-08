@@ -24,7 +24,7 @@ screen.connect_signal("request::wallpaper", function(s)
 end)
 
 screen.connect_signal("request::desktop_decoration", function(s)
-	awful.tag(vars.tags, s, awful.layout.layouts[1])
+	awful.tag(vars.tags, s, awful.layout.layouts[2])
 	s.layoutbox = widgets.create_layoutbox(s)
 	s.taglist = widgets.create_taglist(s)
 	s.tasklist = widgets.create_tasklist(s)

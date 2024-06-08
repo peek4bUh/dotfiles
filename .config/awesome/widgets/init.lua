@@ -43,6 +43,8 @@ _M.launcher = awful.widget.launcher({
 _M.keyboardlayout = awful.widget.keyboardlayout()
 _M.textclock = wibox.widget.textclock()
 
+awesome.set_preferred_icon_size(96)
+
 function _M.create_layoutbox(s)
 	return awful.widget.layoutbox({
 		screen = s,
@@ -80,55 +82,57 @@ function _M.create_layoutbox(s)
 end
 
 function _M.create_taglist(s)
+	local taglist_buttons = {
+		awful.button({
+			modifiers = {},
+			button = 1,
+			on_press = function(t)
+				t:view_only()
+			end,
+		}),
+		awful.button({
+			modifiers = { mod.super },
+			button = 1,
+			on_press = function(t)
+				if client.focus then
+					client.focus:move_to_tag(t)
+				end
+			end,
+		}),
+		awful.button({
+			modifiers = {},
+			button = 3,
+			on_press = awful.tag.viewtoggle,
+		}),
+		awful.button({
+			modifiers = { mod.super },
+			button = 3,
+			on_press = function(t)
+				if client.focus then
+					client.focus:toggle_tag(t)
+				end
+			end,
+		}),
+		awful.button({
+			modifiers = {},
+			button = 4,
+			on_press = function(t)
+				awful.tag.viewprev(t.screen)
+			end,
+		}),
+		awful.button({
+			modifiers = {},
+			button = 5,
+			on_press = function(t)
+				awful.tag.viewnext(t.screen)
+			end,
+		}),
+	}
+
 	return awful.widget.taglist({
 		screen = s,
 		filter = awful.widget.taglist.filter.all,
-		buttons = {
-			awful.button({
-				modifiers = {},
-				button = 1,
-				on_press = function(t)
-					t:view_only()
-				end,
-			}),
-			awful.button({
-				modifiers = { mod.super },
-				button = 1,
-				on_press = function(t)
-					if client.focus then
-						client.focus:move_to_tag(t)
-					end
-				end,
-			}),
-			awful.button({
-				modifiers = {},
-				button = 3,
-				on_press = awful.tag.viewtoggle,
-			}),
-			awful.button({
-				modifiers = { mod.super },
-				button = 3,
-				on_press = function(t)
-					if client.focus then
-						client.focus:toggle_tag(t)
-					end
-				end,
-			}),
-			awful.button({
-				modifiers = {},
-				button = 4,
-				on_press = function(t)
-					awful.tag.viewprev(t.screen)
-				end,
-			}),
-			awful.button({
-				modifiers = {},
-				button = 5,
-				on_press = function(t)
-					awful.tag.viewnext(t.screen)
-				end,
-			}),
-		},
+		buttons = taglist_buttons,
 	})
 end
 
@@ -168,6 +172,7 @@ function _M.create_tasklist(s)
 		screen = s,
 		filter = awful.widget.tasklist.filter.currenttags,
 		buttons = tasklist_buttons,
+		style = { shape = gears.shape.rounded_rect },
 		layout = wibox.layout.fixed.horizontal(),
 		widget_template = {
 			{
@@ -191,7 +196,7 @@ function _M.create_wibox(s)
 	return awful.wibar({
 		screen = s,
 		position = "bottom",
-		height = xresources.apply_dpi(40),
+		height = xresources.apply_dpi(48),
 		widget = wibox.container.background({
 			widget = wibox.container.margin({
 				layout = wibox.layout.align.horizontal,
