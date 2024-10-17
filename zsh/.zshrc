@@ -20,7 +20,6 @@ alias lla="lsd -la"
 alias vi="nvim"
 alias cat="bat"
 alias ls="lsd"
-alias dotfiles="/usr/bin/git --git-dir=/home/angel/dotfiles/ --work-tree=/home/angel"
 
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
@@ -36,3 +35,4 @@ source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 export GPG_TTY=\$(tty)
 
+#picom --config ~/.config/picom/picom.conf &

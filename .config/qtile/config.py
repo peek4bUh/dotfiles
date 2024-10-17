@@ -26,13 +26,19 @@
 
 import os
 
-from libqtile import bar, layout, qtile, widget
+from libqtile import bar, layout, qtile, widget, hook
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
+import subprocess
 
 mod = "mod4"
 terminal = guess_terminal()
+
+@hook.subscribe.startup_once
+def autostart():
+    script = os.path.expanduser("~/.config/qtile/autostart.sh")
+    subprocess.run([script])
 
 keys = [
     # A list of available commands that can be bound to keys can be found
@@ -42,7 +48,6 @@ keys = [
     Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
     Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
     Key([mod], "k", lazy.layout.up(), desc="Move focus up"),
-    Key([mod], "space", lazy.layout.next(), desc="Move window focus to other window"),
     # Move windows between left/right columns or move up/down in current stack.
     # Moving out of range in Columns layout will create new column.
     Key([mod, "shift"], "h", lazy.layout.shuffle_left(), desc="Move window to the left"),
@@ -68,7 +73,8 @@ keys = [
     ),
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
     # Toggle between different layouts as defined below
-    Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
+    Key([mod, "shift"], "space", lazy.prev_layout(), desc="Toggle previous layout"),
+    Key([mod], "space", lazy.next_layout(), desc="Toggle next layout"),
     Key([mod], "w", lazy.window.kill(), desc="Kill focused window"),
     Key(
         [mod],
@@ -77,9 +83,18 @@ keys = [
         desc="Toggle fullscreen on the focused window",
     ),
     Key([mod], "t", lazy.window.toggle_floating(), desc="Toggle floating on the focused window"),
-    Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
-    Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
+    Key([mod, "mod1"], "r", lazy.reload_config(), desc="Reload the config"),
+    Key([mod, "mod1"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     Key([mod], "r", lazy.spawn("rofi -show run"), desc="Spawn Rofi launcher"),
+    Key([mod, "shift"], "s", lazy.spawn("shutter -s"), desc="Spawn Shutter to screenshot an area"),
+
+    # Volume (el 6 es por el hdmi de la grafica)
+    Key([mod, "mod1"], "Page_Down", lazy.spawn("pactl set-sink-volume 6 +5%"), desc='Volume Up'),
+    Key([mod, "mod1"], "End", lazy.spawn("pactl set-sink-volume 6 -5%"), desc='Volume down'),
+    #Key(["function"], "Delete", lazy.spawn("pulsemixer --toggle-mute"), desc='Volume Mute'),
+    Key([mod, "mod1"], "Home", lazy.spawn("playerctl play-pause"), desc='playerctl'),
+    Key([], "XF86AudioPrev", lazy.spawn("playerctl previous"), desc='playerctl'),
+    Key([], "XF86AudioNext", lazy.spawn("playerctl next"), desc='playerctl'),
 ]
 
 # Add key bindings to switch VTs in Wayland.
@@ -96,7 +111,7 @@ for vt in range(1, 8):
     )
 
 
-groups = [Group(i) for i in "123456789"]
+    groups = [Group(i) for i in "12345"]
 
 for i in groups:
     keys.extend(
@@ -122,20 +137,35 @@ for i in groups:
         ]
     )
 
+lay_config = {
+    "border_width": 0,
+    "margin": 9,
+    "border_focus": "3b4252",
+    "border_normal": "3b4252",
+    "font": "FiraCode Nerd Font",
+    "grow_amount": 2,
+}
+
 layouts = [
-    layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=4),
-    layout.Max(),
-    # Try more layouts by unleashing below layouts.
-    # layout.Stack(num_stacks=2),
-    # layout.Bsp(),
-    # layout.Matrix(),
-    # layout.MonadTall(),
-    # layout.MonadWide(),
-    # layout.RatioTile(),
-    # layout.Tile(),
-    # layout.TreeTab(),
-    # layout.VerticalTile(),
-    # layout.Zoomy(),
+    # layout.MonadWide(**lay_config),
+    layout.Bsp(**lay_config, fair=False, border_on_single=True),
+    layout.Columns(
+        **lay_config,
+        border_on_single=True,
+        num_columns=2,
+        split=False,
+    ),
+    # Plasma(lay_config, border_normal_fixed='#3b4252', border_focus_fixed='#3b4252', border_width_single=3),
+    # layout.RatioTile(**lay_config),
+    # layout.VerticalTile(**lay_config),
+    # layout.Matrix(**lay_config, columns=3),
+    # layout.Zoomy(**lay_config),
+    # layout.Slice(**lay_config, width=1920, fallback=layout.TreeTab(), match=Match(wm_class="joplin"), side="right"),
+    # layout.MonadTall(**lay_config),
+    # layout.Tile(shift_windows=True, **lay_config),
+    # layout.Stack(num_stacks=2, **lay_config),
+    layout.Floating(**lay_config),
+    layout.Max(**lay_config),
 ]
 
 widget_defaults = dict(
@@ -147,35 +177,62 @@ extension_defaults = widget_defaults.copy()
 
 screens = [
     Screen(
-        wallpaper=os.path.join(os.path.expanduser("~"), "Images/house.jpg"),
-        wallpaper_mode="fill",
+        wallpaper=os.path.join(os.path.expanduser("~"), "Images/synthwave-sports-car-wr-2560x1440.jpg"),
+        wallpaper_mode='fill',
         bottom=bar.Bar(
             [
-                widget.CurrentLayout(),
-                widget.GroupBox(),
-                widget.WindowName(),
-                widget.Chord(
-                    chords_colors={
-                        "launch": ("#ff0000", "#ffffff"),
-                    },
-                    name_transform=lambda name: name.upper(),
+                widget.Spacer(length=15),
+                widget.Image(
+                    filename='~/.config/qtile/Assets/launch_Icon.png',
+                    margin=2
                 ),
-                # NB Systray is incompatible with Wayland, consider using StatusNotifier instead
-                # widget.StatusNotifier(),
-                widget.Systray(),
-                widget.KeyboardLayout(),
-                widget.Clock(format='%d/%m/%y %H:%M:%S'),
-                widget.QuickExit(),
+                widget.GroupBox(
+                    font="JetBrainsMono Nerd Font",
+                    fontsize=24,
+                    borderwidth=3,
+                    highlight_method='block',
+                    active='#CAA9E0',
+                    block_highlight_text_color="#91B1F0",
+                    highlight_color='#353446',
+                    inactive='#282738',
+                    this_current_screen_border='#353446',
+                    this_screen_border='#353446',
+                    other_current_screen_border='#353446',
+                    other_screen_border='#353446',
+                    urgent_border='#353446',
+                    rounded=True,
+                    disable_drag=True,
+                ),
+                widget.Spacer(length=8),
+                widget.CurrentLayoutIcon(
+                    custom_icon_paths=["~/.config/qtile/Assets/layout"],
+                    scale=0.50,
+                ),
+                widget.WindowName(
+                    fontsize=13,
+                    empty_group_string="Desktop",
+                    max_chars=130
+                ),
+                widget.Systray(
+                    fontsize=2,
+                ),
+                widget.KeyboardLayout(configured_keyboards=['es']),
+                widget.TextBox(
+                    text=" ",
+                    fontsize=13,
+                ),
+                widget.Volume(
+                    fontsize=13,
+                ),
+                widget.Clock(
+                    format='%d/%m/%y %H:%M:%S',
+                    fontsize=13,
+                ),
+                widget.Spacer(length=18),
             ],
-            48,
-            background="#282a36",
-            # border_width=[2, 0, 2, 0],  # Draw top and bottom borders
-            # border_color=["ff00ff", "000000", "ff00ff", "000000"]  # Borders are magenta
+            size=40,
+            background='#121212'
         ),
-        # You can uncomment this variable if you see that on X11 floating resize/moving is laggy
-        # By default we handle these events delayed to already improve performance, however your system might still be struggling
-        # This variable is set to None (no cap) by default, but you can set it to 60 to indicate that you limit it to 60 events per second
-        # x11_drag_polling_rate = 60,
     ),
 ]
 
