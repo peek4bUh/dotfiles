@@ -225,7 +225,7 @@ screens = [
                     fontsize=13,
                 ),
                 widget.Clock(
-                    format='%d/%m/%y %H:%M:%S',
+                    format='%H:%M:%S %d/%m/%y',
                     fontsize=13,
                 ),
                 widget.Spacer(length=18),
