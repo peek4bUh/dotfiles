@@ -5,9 +5,6 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-bindkey "^A" beginning-of-line
-bindkey "^E" end-of-line
-
 source ~/powerlevel10k/powerlevel10k.zsh-theme
 
 HISTFILE=~/.histfile
@@ -34,5 +31,7 @@ _comp_options+=(globdots)
 source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 export GPG_TTY=\$(tty)
+
+bindkey -e
 
 #picom --config ~/.config/picom/picom.conf &
