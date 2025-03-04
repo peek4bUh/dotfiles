@@ -1,0 +1,20 @@
+[alias]
+    st = status
+    sts = status -s
+    ci = commit
+    co = checkout
+    br = branch
+    unstage = reset HEAD --
+    last = log -1 HEAD
+[color]
+    diff = auto
+    status = auto
+    branch = auto
+[commit]
+    gpgsign = true
+[core]
+    editor = nvim
+[user]
+    name = peek4bUh
+    email = aandradeb99@gmail.com
+    signingkey = 8C96B6DD7704D978
