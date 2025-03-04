@@ -16,18 +16,11 @@ SAVEHIST=10000
 
 alias \
     sudo='sudo ' \
-    ls="lsd" \
-    ll="lsd -l" \
-    lla="lsd -la" \
+    ls="lsd --blocks permission,links,user,group,size,date,name" \
+    ll="ls -l" \
+    lla="ls -la" \
     nv="nvim" \
-    cat="bat" \
-    ga='git add' \
-    gaa='git add --all' \
-    gd='git diff' \
-    gds='git diff --staged'
-    gf='git fetch' \
-    gp='git pull'
-
+    cat="bat"
 
 autoload -Uz compinit
 zstyle ':completion:*' menu select
@@ -43,6 +36,7 @@ source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 export GPG_TTY=\$(tty)
 
+# Emacs bindings
 bindkey -e
 
 #picom --config ~/.config/picom/picom.conf &
