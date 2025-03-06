@@ -1,3 +1,16 @@
+#
+#       ███████╗███████╗██╗  ██╗██████╗  ██████╗
+#       ╚══███╔╝██╔════╝██║  ██║██╔══██╗██╔════╝
+#         ███╔╝ ███████╗███████║██████╔╝██║
+#        ███╔╝  ╚════██║██╔══██║██╔══██╗██║
+#    ██╗███████╗███████║██║  ██║██║  ██║╚██████╗
+#    ╚═╝╚══════╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝
+#
+#    author: peek4bUh
+#    repo:   https://github.com/peek4bUh/dotfiles
+#
+
+
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_CONFIG_HOME="$HOME/.config"
 
@@ -14,13 +27,7 @@ HISTFILE=~/.histfile
 HISTSIZE=10000
 SAVEHIST=10000
 
-alias \
-    sudo='sudo ' \
-    ls="lsd --blocks permission,links,user,group,size,date,name" \
-    ll="ls -l" \
-    lla="ls -la" \
-    nv="nvim" \
-    cat="bat"
+source "$XDG_CONFIG_HOME/zsh/.aliasrc"
 
 autoload -Uz compinit
 zstyle ':completion:*' menu select
