@@ -47,3 +47,5 @@ export GPG_TTY=\$(tty)
 bindkey -e
 
 #picom --config ~/.config/picom/picom.conf &
+
+export PATH=$HOME/.config/rofi/scripts:$PATH
