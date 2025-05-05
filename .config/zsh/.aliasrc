@@ -10,10 +10,11 @@
 #    repo:   https://github.com/peek4bUh/dotfiles
 #
 
-alias \
-    sudo='sudo ' \
-    ls="lsd --blocks permission,links,user,group,size,date,name" \
-    ll="ls -l" \
-    lla="ls -la" \
-    nv="nvim" \
-    cat="bat"
+
+alias cat="bat"
+alias ls="lsd --blocks permission,links,user,group,size,date,name"
+alias ll="ls -l"
+alias lla="ll -a"
+alias nv="nvim"
+alias sudo='sudo '
+alias info='info --vi-keys'
