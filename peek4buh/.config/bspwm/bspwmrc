@@ -30,5 +30,5 @@ bspc rule -a Screenkey manage=off
 bspc rule -a 'Spotify:*' desktop="^5"
 
 # Remove default "X" cursor from root window
-# https://www.reddit.com/r/bspwm/comments/s5xsph/cursor_problem
+# see https://www.reddit.com/r/bspwm/comments/s5xsph/cursor_problem
 xsetroot -cursor_name left_ptr
