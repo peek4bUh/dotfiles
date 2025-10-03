@@ -1,0 +1,89 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 36,
+    "spacing": 4,
+
+    "modules-left": ["hyprland/workspaces", "hyprland/window"],
+    "modules-right": ["wireplumber", "group/net", "clock"],
+
+    "group/net": {
+        "orientation": "horizontal",
+        "modules": ["hyprland/language", "network", "bluetooth"]
+    },
+
+    "hyprland/workspaces": {
+        "format": "{icon}",
+        "format-icons": {
+            "active": "\uf29f",
+            "default": "\uf444"
+        },
+        "icon-size": 24,
+        "sort-by-number": true,
+        "persistent-workspaces": {
+            "1": [],
+            "2": [],
+            "3": [],
+            "4": [],
+            "5": [],
+        }
+    },
+
+    "hyprland/window": {
+        "rewrite": {
+            "(.*) — Mozilla Firefox": "Firefox",
+        },
+    },
+
+    "clock": {
+        "format": "{:%d %b %Y %H:%M:%S}",
+        "interval": 1,
+    },
+
+    "wireplumber": {
+        "format": "\udb81\udd7e",
+        "tooltip-format": "{volume}%",
+        "max-volume": 100,
+        "scroll-step": 5
+    },
+
+    "battery": {
+        "bat": "BAT1",
+        "interval": 60,
+        "format": "{icon}  {capacity}%",
+        "format-icons": ["\uf244", "\uf243", "\uf242", "\uf241", "\uf240"],
+    },
+
+    "backlight": {
+        "format": "\udb80\udcdf  {percent}%"
+    },
+
+    "network": {
+        "format": "",
+        "format-ethernet": "\udb83\udc9d ",
+        "format-wifi": "{icon} ",
+        "format-disconnected": "\udb83\udc9c ",
+        "format-icons": ["\udb82\udd2f", "\udb82\udd1f", "\udb82\udd22", "\udb82\udd25", "\udb82\udd28"],
+        "tooltip-format-wifi": "{essid}",
+        "tooltip-format-ethernet": "{ifname}",
+        "tooltip-format-disconnected": "Disconnected",
+    },
+
+    "bluetooth": {
+        "format": "\udb80\udcaf",
+        "format-disabled": "\udb80\udcb2",
+        "format-connected": "\udb80\udcb1",
+        "tooltip-format": "{controller_alias}\t{controller_address}",
+        "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
+        "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}"
+    },
+
+    "hyprland/language": {
+        "format": "{short}"
+    },
+
+    "tray": {
+        "icon-size": 16,
+        "spacing": 16
+    }
+}
