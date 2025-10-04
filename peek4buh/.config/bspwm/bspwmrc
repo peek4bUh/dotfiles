@@ -1,17 +1,20 @@
 #!/usr/bin/zsh
 #
-#    ██████╗ ███████╗██████╗ ██╗    ██╗███╗   ███╗██████╗  ██████╗
-#    ██╔══██╗██╔════╝██╔══██╗██║    ██║████╗ ████║██╔══██╗██╔════╝
-#    ██████╔╝███████╗██████╔╝██║ █╗ ██║██╔████╔██║██████╔╝██║
-#    ██╔══██╗╚════██║██╔═══╝ ██║███╗██║██║╚██╔╝██║██╔══██╗██║
-#    ██████╔╝███████║██║     ╚███╔███╔╝██║ ╚═╝ ██║██║  ██║╚██████╗
-#    ╚═════╝ ╚══════╝╚═╝      ╚══╝╚══╝ ╚═╝     ╚═╝╚═╝  ╚═╝ ╚═════╝
+#  ██████╗ ███████╗██████╗ ██╗    ██╗███╗   ███╗██████╗  ██████╗
+#  ██╔══██╗██╔════╝██╔══██╗██║    ██║████╗ ████║██╔══██╗██╔════╝
+#  ██████╔╝███████╗██████╔╝██║ █╗ ██║██╔████╔██║██████╔╝██║
+#  ██╔══██╗╚════██║██╔═══╝ ██║███╗██║██║╚██╔╝██║██╔══██╗██║
+#  ██████╔╝███████║██║     ╚███╔███╔╝██║ ╚═╝ ██║██║  ██║╚██████╗
+#  ╚═════╝ ╚══════╝╚═╝      ╚══╝╚══╝ ╚═╝     ╚═╝╚═╝  ╚═╝ ╚═════╝
 #
-#    author: peek4bUh
-#    repo:   https://github.com/peek4bUh/dotfiles
+#  Author: peek4bUh
+#  Filename: bspwm/bspwmrc
+#  Repository: https://github.com/peek4bUh/dotfiles
+#  Source: https://github.com/baskerville/bspwm
+#
 
 
-pgrep -x sxhkd > /dev/null || sxhkd -c ~/.config/sxhkd/sxhkdrc ~/.config/sxhkd/focus_swap ~/.config/sxhkd/media_control ~/.config/sxhkd/move_resize ~/.config/sxhkd/preselect ~/.config/sxhkd/programs &
+pgrep -x sxhkd > /dev/null || sxhkd &
 
 bspc monitor -d I II III IV V
 

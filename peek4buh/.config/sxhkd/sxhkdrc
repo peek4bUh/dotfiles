@@ -13,6 +13,39 @@
 #
 
 
+################
+### PROGRAMS ###
+################
+
+# Terminal emulator
+super + Return
+	alacritty
+
+# Aplication launcher
+super + r 
+	$XDG_CONFIG_HOME/rofi/launchers/type-1/launcher.sh
+
+# Firefox
+super + f
+	firefox
+
+# Explorer (TUI)
+super + e
+	alacritty --command ranger
+
+# Explorer (GUI)
+super + shift + {e}
+	dolphin
+
+# Powermenu
+super + alt + {p}
+	~/.config/rofi/scripts/powermenu_t2
+
+
+###############
+### GENERAL ###
+###############
+
 # Quit BSPWM
 super + alt + {q}
 	bspc {quit}
@@ -21,13 +54,13 @@ super + alt + {q}
 super + alt + {r}
 	bspc {wm -r}; dunstify "bspwm: reloaded"
 
-# Close and kill a window
-super + {_,shift + }w
+# Close window
+super + w
 	bspc node -{c,k}
 
-# Reload sxhkd config files
+# Reload sxhkd config
 super + Escape
-	pkill -USR1 -x sxhkd focus_swap media_control move_resize preselect programs; dunstify "Sxhkd: reloaded"
+	pkill -USR1 -x sxhkd; dunstify "Sxhkd: reloaded"
 
 # Alternate between the tiled and monocle layout
 super + m
@@ -48,3 +81,112 @@ super + {t,shift + t,s,f}
 # Set the node flags
 super + ctrl + {m,x,y,z}
 	bspc node -g {marked,locked,sticky,private}
+
+
+##################
+### FOCUS/SWAP ###
+##################
+
+# focus the node in the given direction
+super + {_,shift + }{h,j,k,l}
+	bspc node -{f,s} {west,south,north,east}
+
+# focus the node for the given path jump
+super + {p,b,comma,period}
+	bspc node -f @{parent,brother,first,second}
+
+# focus the next/previous window in the current desktop
+# (error: No keycodes found for keysym 91)
+super + {_,shift + }c
+	bspc node -f {next,prev}.local.!hidden.window
+
+# focus the next/previous desktop in the current monitor
+# (error: No keycodes found for keysym 93)
+super + bracket{left,right}
+	bspc desktop -f {prev,next}.local
+
+# focus the last node/desktop
+# (error: No keycodes found for keysym 96)
+super + {grave,Tab}
+	bspc {node,desktop} -f last
+
+# focus the older or newer node in the focus history
+super + {o,i}
+	bspc wm -h off; \
+	bspc node {older,newer} -f; \
+	bspc wm -h on
+
+# focus or send to the given desktop
+super + {_,shift + }{1-5,0}
+	bspc {desktop -f,node -d} '^{1-5,10}'
+
+
+##################
+### MULTIMEDIA ###
+##################
+
+# Previous track
+XF86AudioPrev
+	playerctl previous
+
+# Next track
+XF86AudioNext
+	playerctl next
+
+# Play/Pause
+XF86AudioPlay
+	playerctl play-pause
+
+# Volume down
+XF86AudioLowerVolume
+	pactl set-sink-volume @DEFAULT_SINK@ -2% && \
+	notify-send "🔉 Volume: $(pactl get-sink-volume @DEFAULT_SINK@ | grep -oP '[0-9]+(?=%)' | head -1)%"
+
+# Volume up
+XF86AudioRaiseVolume
+	pactl set-sink-volume @DEFAULT_SINK@ +2% && \
+	notify-send "🔊 Volume: $(pactl get-sink-volume @DEFAULT_SINK@ | grep -oP '[0-9]+(?=%)' | head -1)%"
+
+# Mute/Unmute sound
+XF86AudioMute
+	pactl set-sink-mute @DEFAULT_SINK@ toggle && \
+	notify-send "🔇 Muted"
+
+
+###################
+### MOVE/RESIZE ###
+###################
+
+# Expand a window by moving one of its side outward
+super + alt + {h,j,k,l}
+	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+
+# Contract a window by moving one of its side inward
+super + alt + shift + {h,j,k,l}
+	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
+
+# Move a floating window
+super + {Left,Down,Up,Right}
+	bspc node -v {-20 0,0 20,0 -20,20 0}
+
+
+#################
+### PRESELECT ###
+#################
+
+# Preselect the direction
+super + ctrl + {h,j,k,l}
+	bspc node -p {west,south,north,east}
+
+# Preselect the ratio
+super + ctrl + {1-9}
+	bspc node -o 0.{1-9}
+
+# Cancel the preselection for the focused node
+super + ctrl + space
+	bspc node -p cancel
+
+# Cancel the preselection for the focused desktop
+super + ctrl + shift + space
+	bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
+
