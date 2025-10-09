@@ -1,12 +1,5 @@
 #
-#  ███████╗██╗  ██╗██╗  ██╗██╗  ██╗██████╗ ██████╗  ██████╗
-#  ██╔════╝╚██╗██╔╝██║  ██║██║ ██╔╝██╔══██╗██╔══██╗██╔════╝
-#  ███████╗ ╚███╔╝ ███████║█████╔╝ ██║  ██║██████╔╝██║
-#  ╚════██║ ██╔██╗ ██╔══██║██╔═██╗ ██║  ██║██╔══██╗██║
-#  ███████║██╔╝ ██╗██║  ██║██║  ██╗██████╔╝██║  ██║╚██████╗
-#  ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝ ╚═╝  ╚═╝ ╚═════╝
-#
-#  Author: peek4bUh
+#  Author: Angel @peek4bUh Andrade
 #  Filename: sxhkd/sxhkdrc
 #  Repository: https://github.com/peek4bUh/dotfiles
 #  Source: https://github.com/baskerville/sxhkd
@@ -23,7 +16,7 @@ super + Return
 
 # Aplication launcher
 super + r 
-	$XDG_CONFIG_HOME/rofi/launchers/type-1/launcher.sh
+	rofi -show drun -theme $XDG_CONFIG_HOME/rofi/conf.rasi
 
 # Firefox
 super + f
