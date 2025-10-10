@@ -15,8 +15,8 @@ super + Return
 	alacritty
 
 # Aplication launcher
-super + r 
-	rofi -show drun -theme $XDG_CONFIG_HOME/rofi/conf.rasi
+super + space
+	rofi -show drun -theme $XDG_CONFIG_HOME/rofi/configs/launcher.rasi
 
 # Firefox
 super + f
@@ -32,7 +32,7 @@ super + shift + {e}
 
 # Powermenu
 super + alt + {p}
-	~/.config/rofi/scripts/powermenu_t2
+	$XDG_CONFIG_HOME/rofi/scripts/powermenu.sh
 
 
 ###############
