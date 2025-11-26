@@ -132,18 +132,15 @@ XF86AudioPlay
 
 # Volume down
 XF86AudioLowerVolume
-	pactl set-sink-volume @DEFAULT_SINK@ -2% && \
-	notify-send "🔉 Volume: $(pactl get-sink-volume @DEFAULT_SINK@ | grep -oP '[0-9]+(?=%)' | head -1)%"
+	pactl set-sink-volume @DEFAULT_SINK@ -2% &&
 
 # Volume up
 XF86AudioRaiseVolume
-	pactl set-sink-volume @DEFAULT_SINK@ +2% && \
-	notify-send "🔊 Volume: $(pactl get-sink-volume @DEFAULT_SINK@ | grep -oP '[0-9]+(?=%)' | head -1)%"
+	pactl set-sink-volume @DEFAULT_SINK@ +2% &&
 
 # Mute/Unmute sound
 XF86AudioMute
-	pactl set-sink-mute @DEFAULT_SINK@ toggle && \
-	notify-send "🔇 Muted"
+	pactl set-sink-mute @DEFAULT_SINK@ toggle &&
 
 
 ###################

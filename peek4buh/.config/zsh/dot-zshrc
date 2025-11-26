@@ -1,13 +1,7 @@
 #
-#       ███████╗███████╗██╗  ██╗██████╗  ██████╗
-#       ╚══███╔╝██╔════╝██║  ██║██╔══██╗██╔════╝
-#         ███╔╝ ███████╗███████║██████╔╝██║
-#        ███╔╝  ╚════██║██╔══██║██╔══██╗██║
-#    ██╗███████╗███████║██║  ██║██║  ██║╚██████╗
-#    ╚═╝╚══════╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝
-#
-#    author: peek4bUh
-#    repo:   https://github.com/peek4bUh/dotfiles
+#  Author: Angel @peek4bUh Andrade
+#  Filename: zsh/.zshrc
+#  Repository: https://github.com/peek4bUh/dotfiles
 #
 
 

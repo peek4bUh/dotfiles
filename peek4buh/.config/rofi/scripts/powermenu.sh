@@ -1,4 +1,11 @@
 #!/usr/bin/bash
+#
+#  Author: Angel @peek4bUh Andrade
+#  Filename: rofi/scripts/powermenu.sh
+#  Repository: https://github.com/peek4bUh/dotfiles
+#  Source: https://github.com/adi1090x/rofi/blob/master/files/powermenu/type-4/powermenu.sh
+#
+
 
 # Options
 shutdown=''
@@ -20,28 +27,17 @@ run_rofi() {
 	echo -e "$lock\n$suspend\n$logout\n$reboot\n$shutdown" | rofi_cmd
 }
 
-# Execute Command
-run_cmd() {
-	if [[ $1 == '--shutdown' ]]; then
-		systemctl poweroff
-	elif [[ $1 == '--reboot' ]]; then
-		systemctl reboot
-	elif [[ $1 == '--suspend' ]]; then
-		mpc -q pause
-		amixer set Master mute
-		systemctl suspend
-	elif [[ $1 == '--logout' ]]; then
-		bspc quit
-	fi
-}
-
 chosen="$(run_rofi)"
 case ${chosen} in
-    $shutdown) run_cmd --shutdown;;
-    $reboot) run_cmd --reboot;;
+    $shutdown)
+	systemctl poweroff;;
+    $reboot)
+	systemctl reboot;;
     $lock)
 	# TODO: do it :)
-        ;;
-    $suspend) run_cmd --suspend;;
-    $logout) run_cmd --logout;;
+	    ;;
+    $suspend)
+	systemctl suspend;;
+    $logout)
+	bspc quit;;
 esac
